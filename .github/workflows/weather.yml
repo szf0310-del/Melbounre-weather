@@ -25,5 +25,5 @@ jobs:
 
       - name: Send today's Melbourne weather to WeChat
         env:
-          SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
+          SERVERCHAN_SENDKEY: ${{ secrets.WEATHER }}
         run: python weather.py
