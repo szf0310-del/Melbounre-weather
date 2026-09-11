@@ -2,6 +2,10 @@ name: Check Melbourne weather
 
 on:
   workflow_dispatch:
+  schedule:
+    # 9:00 AM Melbourne is 22:00 UTC during daylight-saving time
+    # and 23:00 UTC during standard time. weather.py prevents duplicates.
+    - cron: "0 22,23 * * *"
 
 jobs:
   check-weather:
@@ -19,5 +23,7 @@ jobs:
       - name: Install the weather helper
         run: python -m pip install requests
 
-      - name: Show today's Melbourne weather
+      - name: Send today's Melbourne weather to WeChat
+        env:
+          SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
         run: python weather.py
